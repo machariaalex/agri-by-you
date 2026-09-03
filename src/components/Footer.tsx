@@ -13,7 +13,7 @@ export function Footer() {
     <footer className="bg-gradient-to-b from-forest to-forest-dark pt-20 text-cream/80">
       <div className="mx-auto grid max-w-7xl gap-12 px-6 pb-16 sm:grid-cols-2 lg:grid-cols-4 lg:px-10">
         <div>
-          <LogoWhite size={88} />
+          <LogoWhite size={48} />
           <p className="mt-5 max-w-[22ch] text-sm leading-relaxed">
             A By You Product. For You.
           </p>
