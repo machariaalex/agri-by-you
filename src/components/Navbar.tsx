@@ -43,7 +43,7 @@ export function Navbar() {
           onClick={(e) => handleNav(e, "/")}
           className="flex items-center transition-transform duration-300 hover:scale-[1.04]"
         >
-          <Logo size={56} />
+          <Logo size={45} />
         </Link>
 
         <div className="hidden items-center gap-9 lg:flex">
