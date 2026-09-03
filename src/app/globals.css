@@ -1,26 +1,69 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
+  --font-script: var(--font-script);
+  --font-body: var(--font-body);
+
+  /* AgriByYou brand palette, sampled from imgs/logo.png */
+  --color-cream: #f7f1e3;
+  --color-cream-dark: #eae2cc;
+  --color-ink: #23281f;
+  --color-forest: #2f5035;
+  --color-forest-dark: #1a2c1d;
+  --color-forest-light: #48654d;
+  --color-leaf: #4f7a55;
+  --color-gold: #602b0c;
+  --color-gold-light: #b39882;
+
+  --animate-marquee: marquee 26s linear infinite;
+  --animate-spin-slow: spin 14s linear infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-cream);
+  color: var(--color-ink);
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-forest-dark);
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-script {
+  font-family: var(--font-script);
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.wheat-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%232f5035' stroke-width='1.4' opacity='0.06'%3E%3Cpath d='M20 100 L20 40 M20 50 L10 42 M20 50 L30 42 M20 60 L10 52 M20 60 L30 52 M20 70 L10 62 M20 70 L30 62'/%3E%3Cpath d='M90 110 L90 30 M90 40 L78 30 M90 40 L102 30 M90 52 L78 42 M90 52 L102 42 M90 64 L78 54 M90 64 L102 54 M90 76 L78 66 M90 76 L102 66'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+.ribbon {
+  clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%);
+}
+
+.barn-sketch {
+  color: var(--color-forest);
 }
