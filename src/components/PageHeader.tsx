@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { unsplash } from "@/lib/images";
+import { RevealText } from "./RevealText";
 
 export function PageHeader({ title, image }: { title: string; image: string }) {
   return (
@@ -15,7 +16,9 @@ export function PageHeader({ title, image }: { title: string; image: string }) {
       <div className="absolute inset-0 bg-forest-dark/70" />
 
       <div className="relative mx-auto w-full max-w-5xl px-6 py-14 text-center">
-        <h1 className="font-display text-4xl text-white sm:text-5xl">{title}</h1>
+        <RevealText as="h1" className="font-display text-4xl text-white sm:text-5xl">
+          {title}
+        </RevealText>
       </div>
     </section>
   );

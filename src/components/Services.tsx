@@ -2,6 +2,8 @@ import Image from "next/image";
 import { Apple, Bird, Carrot, Layers, type LucideIcon } from "lucide-react";
 import { unsplash } from "@/lib/images";
 import { services } from "@/lib/data";
+import { Reveal } from "./Reveal";
+import { RevealText } from "./RevealText";
 import { SectionTag } from "./SectionTag";
 import { Squiggle } from "./Squiggle";
 
@@ -12,21 +14,27 @@ export function Services() {
     <section id="services" className="wheat-pattern relative bg-cream-dark py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
         <div className="mx-auto max-w-xl text-center">
-          <SectionTag>What We&apos;re Doing</SectionTag>
-          <h2 className="mt-4 font-display text-4xl leading-tight text-forest sm:text-5xl">
+          <Reveal>
+            <SectionTag>What We&apos;re Doing</SectionTag>
+          </Reveal>
+          <RevealText
+            as="h2"
+            className="mt-4 font-display text-4xl leading-tight text-forest sm:text-5xl"
+          >
             SERVICES WE&apos;RE OFFERING
-          </h2>
-          <div className="mt-4 flex justify-center">
+          </RevealText>
+          <Reveal delay={0.1} className="mt-4 flex justify-center">
             <Squiggle />
-          </div>
+          </Reveal>
         </div>
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {services.map((service) => {
+          {services.map((service, i) => {
             const Icon = icons[service.icon];
             return (
-              <div
+              <Reveal
                 key={service.title}
+                delay={i * 0.1}
                 className="group rounded-3xl bg-white p-8 text-center shadow-[0_10px_40px_-15px_rgba(30,58,18,0.15)] transition-transform hover:-translate-y-1.5"
               >
                 <div className="relative mx-auto h-28 w-28">
@@ -45,7 +53,7 @@ export function Services() {
                 </div>
                 <h3 className="mt-7 text-lg font-extrabold text-forest">{service.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-ink/55">{service.description}</p>
-              </div>
+              </Reveal>
             );
           })}
         </div>

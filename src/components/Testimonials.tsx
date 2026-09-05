@@ -5,6 +5,8 @@ import { motion } from "framer-motion";
 import { Quote, Star } from "lucide-react";
 import { unsplash } from "@/lib/images";
 import { testimonials } from "@/lib/data";
+import { Reveal } from "./Reveal";
+import { RevealText } from "./RevealText";
 import { SectionTag } from "./SectionTag";
 import { Squiggle } from "./Squiggle";
 
@@ -16,13 +18,18 @@ export function Testimonials() {
 
       <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
         <div className="mx-auto max-w-xl text-center">
-          <SectionTag>Our Testimonials</SectionTag>
-          <h2 className="mt-4 font-display text-4xl leading-tight text-forest sm:text-5xl">
+          <Reveal>
+            <SectionTag>Our Testimonials</SectionTag>
+          </Reveal>
+          <RevealText
+            as="h2"
+            className="mt-4 font-display text-4xl leading-tight text-forest sm:text-5xl"
+          >
             WHAT THEY&apos;RE TAKING ABOUT
-          </h2>
-          <div className="mt-4 flex justify-center">
+          </RevealText>
+          <Reveal delay={0.1} className="mt-4 flex justify-center">
             <Squiggle />
-          </div>
+          </Reveal>
         </div>
 
         <div className="mt-20 grid gap-x-6 gap-y-16 sm:grid-cols-2 lg:grid-cols-3">

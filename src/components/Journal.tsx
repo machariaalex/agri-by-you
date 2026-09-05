@@ -5,6 +5,8 @@ import { ArrowUpRight } from "lucide-react";
 import { unsplash } from "@/lib/images";
 import { journal } from "@/lib/data";
 import { navigateTo } from "@/lib/pageTransition";
+import { Reveal } from "./Reveal";
+import { RevealText } from "./RevealText";
 import { SectionTag } from "./SectionTag";
 import { Squiggle } from "./Squiggle";
 
@@ -12,27 +14,36 @@ export function Journal() {
   return (
     <section id="journal" className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
       <div className="mx-auto max-w-xl text-center">
-        <SectionTag>From the Journal</SectionTag>
-        <h2 className="mt-4 font-display text-4xl leading-tight text-forest sm:text-5xl">
+        <Reveal>
+          <SectionTag>From the Journal</SectionTag>
+        </Reveal>
+        <RevealText
+          as="h2"
+          className="mt-4 font-display text-4xl leading-tight text-forest sm:text-5xl"
+        >
           LATEST NEWS &amp; ARTICLES
-        </h2>
-        <div className="mt-4 flex justify-center">
+        </RevealText>
+        <Reveal delay={0.1} className="mt-4 flex justify-center">
           <Squiggle />
-        </div>
+        </Reveal>
       </div>
 
       <div className="mx-auto mt-16 grid max-w-3xl gap-6 sm:grid-cols-2">
-        {journal.map((post) => (
-          <a
-            href={post.href ?? "#"}
+        {journal.map((post, i) => (
+          <Reveal
             key={post.title}
-            onClick={(e) => {
-              if (!post.href) return;
-              e.preventDefault();
-              navigateTo(post.href);
-            }}
+            delay={i * 0.1}
             className="group block overflow-hidden rounded-2xl bg-cream-dark shadow-[0_0_0_rgba(0,0,0,0)] transition-all duration-300 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_-16px_rgba(30,58,18,0.3)]"
           >
+            <a
+              href={post.href ?? "#"}
+              onClick={(e) => {
+                if (!post.href) return;
+                e.preventDefault();
+                navigateTo(post.href);
+              }}
+              className="block"
+            >
             <div className="relative aspect-[4/3] overflow-hidden">
               <Image
                 src={unsplash(post.image, "auto=format&fit=crop&q=80&w=700")}
@@ -53,7 +64,8 @@ export function Journal() {
                 className="shrink-0 -translate-x-1 text-forest/40 opacity-0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-gold group-hover:opacity-100"
               />
             </div>
-          </a>
+            </a>
+          </Reveal>
         ))}
       </div>
     </section>

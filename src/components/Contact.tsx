@@ -3,6 +3,8 @@
 import { Mail, MapPin, Phone } from "lucide-react";
 import { BarnSketch } from "./BarnSketch";
 import { PillButton } from "./PillButton";
+import { Reveal } from "./Reveal";
+import { RevealText } from "./RevealText";
 import { SectionTag } from "./SectionTag";
 import { Squiggle } from "./Squiggle";
 
@@ -17,31 +19,44 @@ export function Contact() {
     <section id="contact" className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
       <div className="grid gap-14 lg:grid-cols-2 lg:items-start">
         <div>
-          <SectionTag>Contact Now</SectionTag>
-          <h2 className="mt-4 font-display text-4xl leading-tight text-forest sm:text-5xl">
+          <Reveal>
+            <SectionTag>Contact Now</SectionTag>
+          </Reveal>
+          <RevealText
+            as="h2"
+            className="mt-4 font-display text-4xl leading-tight text-forest sm:text-5xl"
+          >
             GET IN TOUCH NOW
-          </h2>
-          <Squiggle className="mt-4" />
-          <p className="mt-6 max-w-md leading-relaxed text-ink/60">
-          Have questions about our farm-fresh produce, need custom orders, or want to explore agribusiness partnerships? Reach out to our team today. We are here to bring pure, su
-          </p>
+          </RevealText>
+          <Reveal delay={0.1}>
+            <Squiggle className="mt-4" />
+          </Reveal>
+          <Reveal delay={0.15}>
+            <p className="mt-6 max-w-md leading-relaxed text-ink/60">
+              Have questions about our farm-fresh produce, need custom orders, or want to explore
+              agribusiness partnerships? Reach out to our team today — we are here to bring pure,
+              sustainably grown produce from our fields to yours.
+            </p>
+          </Reveal>
 
-          <div className="mt-9 space-y-6">
-            {contactRows.map((row) => (
-              <div key={row.label} className="flex items-center gap-4">
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-forest text-cream">
-                  <row.icon size={18} />
-                </span>
-                <div>
-                  <p className="text-sm text-ink/50">{row.label}</p>
-                  <p className="font-extrabold text-ink">{row.value}</p>
+          <Reveal delay={0.2}>
+            <div className="mt-9 space-y-6">
+              {contactRows.map((row) => (
+                <div key={row.label} className="flex items-center gap-4">
+                  <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-forest text-cream">
+                    <row.icon size={18} />
+                  </span>
+                  <div>
+                    <p className="text-sm text-ink/50">{row.label}</p>
+                    <p className="font-extrabold text-ink">{row.value}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
 
-        <div className="relative overflow-hidden rounded-[1.75rem] bg-cream-dark p-8">
+        <Reveal delay={0.15} y={30} className="relative overflow-hidden rounded-[1.75rem] bg-cream-dark p-8">
           <BarnSketch className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full opacity-40" />
           <form className="relative grid gap-4" onSubmit={(e) => e.preventDefault()}>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -67,7 +82,7 @@ export function Contact() {
               </PillButton>
             </div>
           </form>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

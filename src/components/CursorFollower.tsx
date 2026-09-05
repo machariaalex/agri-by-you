@@ -6,7 +6,6 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 const INTERACTIVE_SELECTOR = "a, button, input, textarea, [role='button'], .cursor-hover";
 
 export function CursorFollower() {
-  const [enabled, setEnabled] = useState(false);
   const [visible, setVisible] = useState(false);
   const [hovering, setHovering] = useState(false);
   const [pressed, setPressed] = useState(false);
@@ -17,15 +16,13 @@ export function CursorFollower() {
   const ringY = useSpring(dotY, { damping: 28, stiffness: 320, mass: 0.6 });
 
   useEffect(() => {
-    const canHover = window.matchMedia("(pointer: fine)").matches;
-    if (!canHover) return;
-    setEnabled(true);
+    if (!window.matchMedia("(pointer: fine)").matches) return;
     document.documentElement.classList.add("cursor-none");
 
     function handleMove(e: MouseEvent) {
       dotX.set(e.clientX);
       dotY.set(e.clientY);
-      if (!visible) setVisible(true);
+      setVisible(true);
 
       const target = e.target as HTMLElement;
       setHovering(Boolean(target.closest(INTERACTIVE_SELECTOR)));
@@ -56,8 +53,6 @@ export function CursorFollower() {
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  if (!enabled) return null;
 
   return (
     <>

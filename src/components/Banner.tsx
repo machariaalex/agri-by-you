@@ -2,6 +2,8 @@ import Image from "next/image";
 import { unsplash, images } from "@/lib/images";
 import { OliveBranch } from "./OliveBranch";
 import { PillButton } from "./PillButton";
+import { Reveal } from "./Reveal";
+import { RevealText } from "./RevealText";
 
 export function Banner() {
   return (
@@ -20,19 +22,22 @@ export function Banner() {
           <div className="hidden sm:block">
             <OliveBranch />
           </div>
-          <h2 className="max-w-3xl text-balance font-body text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl">
+          <RevealText
+            as="h2"
+            className="max-w-3xl text-balance font-body text-4xl font-extrabold leading-[1.1] text-white sm:text-5xl"
+          >
             Grown With Purpose, Harvested With Pride
-          </h2>
+          </RevealText>
           <div className="hidden sm:block">
             <OliveBranch flip />
           </div>
         </div>
 
-        <div className="mt-10">
+        <Reveal delay={0.2} className="mt-10">
           <PillButton as="a" href="#contact" variant="light">
             Discover More
           </PillButton>
-        </div>
+        </Reveal>
       </div>
     </section>
   );
