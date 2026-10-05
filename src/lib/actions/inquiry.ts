@@ -38,7 +38,7 @@ const launchSchema = z
     message: "Enter a valid email address or phone number",
   });
 
-/** "Notify me" on the under-construction page → new lead in the CRM. */
+/** "Notify me" on the maintenance page → new lead in the CRM. */
 export async function subscribeToLaunch(_prev: FormState, formData: FormData): Promise<FormState> {
   const parsed = parseForm(launchSchema, formData);
   if (parsed.error) return parsed.error;
@@ -51,10 +51,10 @@ export async function subscribeToLaunch(_prev: FormState, formData: FormData): P
     name: isEmail ? contact.split("@")[0] : contact,
     email: isEmail ? contact.toLowerCase() : null,
     phone: isEmail ? null : contact,
-    interest: "Website launch",
-    message: "Asked to be notified when the new website launches.",
+    interest: "Website back online",
+    message: "Asked to be notified when the website is back online.",
     source: "website",
     status: "new",
   });
-  return { ok: true, message: "You're on the list — we'll let you know the moment we launch." };
+  return { ok: true, message: "You're on the list — we'll let you know as soon as we're back." };
 }

@@ -4,7 +4,7 @@ import { ComingSoon } from "@/components/ComingSoon";
 export const metadata: Metadata = {
   title: "AgriByYou — Something fresh is growing",
   description:
-    "Our new website is under construction. You can still order fresh vegetables, fruits, organic onions and farm-raised ducks from AgriByYou.",
+    "Our website is getting some improvements and will be back shortly. You can still order fresh vegetables, fruits, organic onions and farm-raised ducks from AgriByYou.",
 };
 
 export default function ComingSoonPage() {

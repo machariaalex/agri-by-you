@@ -40,9 +40,6 @@ const BLADES = Array.from({ length: 120 }, (_, i) => {
   };
 });
 
-const STAGES = ["Seed", "Sprout", "Bloom", "Harvest"];
-const CURRENT_STAGE = 1;
-
 export function ComingSoon() {
   const reduce = useReducedMotion();
   const [state, formProps, pending] = useFormAction(subscribeToLaunch);
@@ -130,7 +127,7 @@ export function ComingSoon() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-light opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-gold-light" />
             </span>
-            Under Construction
+            Under Maintenance
           </motion.p>
 
           <h1 className="mt-7 font-body text-5xl font-extrabold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
@@ -164,45 +161,10 @@ export function ComingSoon() {
             transition={{ duration: 0.8, delay: 0.8, ease }}
             className="mt-6 max-w-lg text-lg leading-relaxed text-cream/70"
           >
-            We&apos;re tending to a brand-new AgriByYou website. The farm hasn&apos;t paused, though:
-            you can still order fresh vegetables, fruits, organic onions and farm-raised ducks.
+            We&apos;re making some improvements to our website and will be back shortly. The farm
+            hasn&apos;t paused, though: you can still order fresh vegetables, fruits, organic onions
+            and farm-raised ducks.
           </motion.p>
-
-          {/* Growth stages instead of a fake percentage. */}
-          <motion.ol
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="mt-9 grid max-w-lg grid-cols-4 gap-2"
-            aria-label="Website progress"
-          >
-            {STAGES.map((stage, i) => {
-              const done = i < CURRENT_STAGE;
-              const current = i === CURRENT_STAGE;
-              return (
-                <li key={stage} aria-current={current ? "step" : undefined}>
-                  <div className="relative h-1.5 overflow-hidden rounded-full bg-cream/10">
-                    {(done || current) && (
-                      <motion.div
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: done ? 1 : 0.6 }}
-                        transition={{ duration: 1.2, delay: 1.1 + i * 0.35, ease }}
-                        className="absolute inset-0 origin-left rounded-full bg-gold-light"
-                      />
-                    )}
-                    {current && !reduce && <div className="shimmer absolute inset-0" />}
-                  </div>
-                  <p
-                    className={`mt-2.5 text-xs font-bold uppercase tracking-[0.15em] ${
-                      current ? "text-gold-light" : done ? "text-cream/70" : "text-cream/30"
-                    }`}
-                  >
-                    {stage}
-                  </p>
-                </li>
-              );
-            })}
-          </motion.ol>
 
           <motion.div
             initial={{ opacity: 0, y: 14 }}
@@ -225,7 +187,7 @@ export function ComingSoon() {
             ) : (
               <form {...formProps}>
                 <label htmlFor="launch-contact" className="text-sm font-semibold text-cream/80">
-                  Get a message the day we launch
+                  Get a message when we&apos;re back
                 </label>
                 <div className="mt-3 flex rounded-full border border-cream/15 bg-cream/[0.06] p-1.5 backdrop-blur-md transition-colors focus-within:border-gold-light/60">
                   <input
@@ -321,7 +283,7 @@ function Sprout({ reduce }: { reduce: boolean }) {
         </defs>
         <text className="fill-gold-light/70 font-body text-[17px] font-bold uppercase tracking-[0.42em]">
           <textPath href="#badge-ring">
-            Under construction · Planting something new · AgriByYou ·
+            Under maintenance · Back shortly · AgriByYou ·
           </textPath>
         </text>
       </svg>
