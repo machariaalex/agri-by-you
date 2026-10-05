@@ -1,5 +1,27 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+## Admin dashboard & CRM
+
+`/admin` is a password-protected dashboard for running the business:
+
+- **CRM**: leads (website contact form submissions land here automatically), customers, partners & suppliers, each with an activity log for calls, WhatsApps, visits and notes.
+- **Sales**: orders with line items, payments and balances, plus a product price list (KES).
+- **Website**: journal articles, services, projects and testimonials. Saving refreshes the public pages.
+
+Data lives in Neon Postgres (provisioned through the Vercel Marketplace on the `agri-by-you` project) and is accessed with Drizzle ORM.
+
+### Setup
+
+```bash
+vercel env pull .env.local          # DATABASE_URL, SESSION_SECRET, …
+npm run db:migrate                  # apply migrations in ./drizzle
+npm run db:seed                     # load the original site content (only fills empty tables)
+npm run admin:create -- you@example.com "Your Name"   # prints a generated password
+npm run dev                         # then open http://localhost:3000/admin
+```
+
+After changing `src/db/schema.ts`, run `npm run db:generate` and commit the new migration. More admins can be added from **Admin → Settings**.
+
 ## Getting Started
 
 First, run the development server:

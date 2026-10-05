@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 import { Caveat, Kalam, Manrope } from "next/font/google";
-import { CursorFollower } from "@/components/CursorFollower";
-import { PageLoader } from "@/components/PageLoader";
 import "./globals.css";
 
 const kalam = Kalam({
@@ -36,8 +34,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${kalam.variable} ${caveat.variable} ${manrope.variable} h-full`}
     >
       <body className="min-h-full flex flex-col font-body bg-cream text-ink antialiased">
-        <PageLoader />
-        <CursorFollower />
         {children}
       </body>
     </html>

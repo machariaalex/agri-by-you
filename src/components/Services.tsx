@@ -1,15 +1,15 @@
 import Image from "next/image";
-import { Apple, Bird, Carrot, Layers, type LucideIcon } from "lucide-react";
+import { Sprout, type LucideIcon } from "lucide-react";
+import { serviceIcons } from "@/lib/serviceIcons";
 import { unsplash } from "@/lib/images";
-import { services } from "@/lib/data";
+import { getServices } from "@/lib/content";
 import { Reveal } from "./Reveal";
 import { RevealText } from "./RevealText";
 import { SectionTag } from "./SectionTag";
 import { Squiggle } from "./Squiggle";
 
-const icons: Record<string, LucideIcon> = { Carrot, Apple, Layers, Bird };
-
-export function Services() {
+export async function Services() {
+  const services = await getServices();
   return (
     <section id="services" className="wheat-pattern relative bg-cream-dark py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-10">
@@ -30,10 +30,10 @@ export function Services() {
 
         <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {services.map((service, i) => {
-            const Icon = icons[service.icon];
+            const Icon: LucideIcon = serviceIcons[service.icon] ?? Sprout;
             return (
               <Reveal
-                key={service.title}
+                key={service.id}
                 delay={i * 0.1}
                 className="group rounded-3xl bg-white p-8 text-center shadow-[0_10px_40px_-15px_rgba(30,58,18,0.15)] transition-transform hover:-translate-y-1.5"
               >

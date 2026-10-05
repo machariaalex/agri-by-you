@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { ArrowUpRight, MapPin } from "lucide-react";
 import { unsplash } from "@/lib/images";
-import { projects } from "@/lib/data";
+import { getProjects } from "@/lib/content";
 import { SectionTag } from "./SectionTag";
 import { Squiggle } from "./Squiggle";
 
-export function Projects() {
+export async function Projects() {
+  const projects = await getProjects();
   return (
     <section id="projects" className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
       <div className="mx-auto max-w-xl text-center">
@@ -20,7 +21,7 @@ export function Projects() {
 
       <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {projects.map((project) => (
-          <div key={project.name} className="group relative aspect-[4/5] overflow-hidden rounded-2xl">
+          <div key={project.id} className="group relative aspect-[4/5] overflow-hidden rounded-2xl">
             <Image
               src={unsplash(project.image, "auto=format&fit=crop&q=80&w=700")}
               alt={project.name}

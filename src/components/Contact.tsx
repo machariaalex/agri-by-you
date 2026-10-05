@@ -1,6 +1,8 @@
 "use client";
 
 import { Mail, MapPin, Phone } from "lucide-react";
+import { submitInquiry } from "@/lib/actions/inquiry";
+import { useFormAction } from "@/lib/useFormAction";
 import { BarnSketch } from "./BarnSketch";
 import { PillButton } from "./PillButton";
 import { Reveal } from "./Reveal";
@@ -14,7 +16,17 @@ const contactRows = [
   { icon: Mail, label: "Email Us", value: "sales@agribyyou.com" },
 ];
 
+const inputClass =
+  "w-full rounded-xl border border-forest/10 bg-white px-4 py-3.5 text-sm placeholder:text-ink/40 focus:border-forest focus:outline-none";
+
+function FieldError({ message }: { message?: string }) {
+  return message ? <p className="mt-1.5 text-xs font-semibold text-red-700">{message}</p> : null;
+}
+
 export function Contact() {
+  const [state, formProps, pending] = useFormAction(submitInquiry);
+  const errors = state.fieldErrors ?? {};
+
   return (
     <section id="contact" className="mx-auto max-w-7xl px-6 py-24 lg:px-10">
       <div className="grid gap-14 lg:grid-cols-2 lg:items-start">
@@ -58,30 +70,36 @@ export function Contact() {
 
         <Reveal delay={0.15} y={30} className="relative overflow-hidden rounded-[1.75rem] bg-cream-dark p-8">
           <BarnSketch className="pointer-events-none absolute inset-x-0 bottom-0 h-24 w-full opacity-40" />
-          <form className="relative grid gap-4" onSubmit={(e) => e.preventDefault()}>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <input
-                type="text"
-                placeholder="Your Name"
-                className="rounded-xl border border-forest/10 bg-white px-4 py-3.5 text-sm placeholder:text-ink/40 focus:border-forest focus:outline-none"
-              />
-              <input
-                type="email"
-                placeholder="Email Address"
-                className="rounded-xl border border-forest/10 bg-white px-4 py-3.5 text-sm placeholder:text-ink/40 focus:border-forest focus:outline-none"
-              />
+          {state.ok ? (
+            <div role="status" className="relative py-16 text-center">
+              <p className="font-display text-3xl text-forest">Message received</p>
+              <p className="mx-auto mt-3 max-w-sm text-ink/60">{state.message}</p>
             </div>
-            <textarea
-              placeholder="Write a Message"
-              rows={5}
-              className="rounded-xl border border-forest/10 bg-white px-4 py-3.5 text-sm placeholder:text-ink/40 focus:border-forest focus:outline-none"
-            />
+          ) : (
+          <form className="relative grid gap-4" {...formProps}>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <div>
+                <input name="name" type="text" placeholder="Your Name" aria-label="Your name" className={inputClass} required />
+                <FieldError message={errors.name} />
+              </div>
+              <div>
+                <input name="email" type="email" placeholder="Email Address" aria-label="Email address" className={inputClass} />
+                <FieldError message={errors.email} />
+              </div>
+            </div>
+            <input name="phone" type="tel" placeholder="Phone / WhatsApp (optional)" aria-label="Phone or WhatsApp" className={inputClass} />
             <div>
-              <PillButton as="button" type="submit">
-                Send a Message
+              <textarea name="message" placeholder="Write a Message" aria-label="Message" rows={5} className={inputClass} required />
+              <FieldError message={errors.message} />
+            </div>
+            <input name="company" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+            <div>
+              <PillButton as="button" type="submit" disabled={pending}>
+                {pending ? "Sending…" : "Send a Message"}
               </PillButton>
             </div>
           </form>
+          )}
         </Reveal>
       </div>
     </section>
