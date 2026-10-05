@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth/token";
 
 /** Set MAINTENANCE_MODE=on to show /coming-soon in place of every public page.
- * The admin keeps working, and signed-in admins still see the real site. */
+ * The admin keeps working; everyone, admins included, sees the maintenance page. */
 const maintenance = process.env.MAINTENANCE_MODE === "on";
 
 // Optimistic check only: pages and Server Actions re-verify with requireAdmin().
@@ -12,8 +12,6 @@ export async function proxy(request: NextRequest) {
 
   if (!isAdmin) {
     if (!maintenance || pathname === "/coming-soon") return NextResponse.next();
-    const session = await verifySessionToken(request.cookies.get(SESSION_COOKIE)?.value);
-    if (session) return NextResponse.next();
     return NextResponse.rewrite(new URL("/coming-soon", request.url));
   }
 
