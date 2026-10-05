@@ -1,9 +1,22 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { SESSION_COOKIE, verifySessionToken } from "@/lib/auth/token";
 
+/** Set MAINTENANCE_MODE=on to show /coming-soon in place of every public page.
+ * The admin keeps working, and signed-in admins still see the real site. */
+const maintenance = process.env.MAINTENANCE_MODE === "on";
+
 // Optimistic check only: pages and Server Actions re-verify with requireAdmin().
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const isAdmin = pathname === "/admin" || pathname.startsWith("/admin/");
+
+  if (!isAdmin) {
+    if (!maintenance || pathname === "/coming-soon") return NextResponse.next();
+    const session = await verifySessionToken(request.cookies.get(SESSION_COOKIE)?.value);
+    if (session) return NextResponse.next();
+    return NextResponse.rewrite(new URL("/coming-soon", request.url));
+  }
+
   const session = await verifySessionToken(request.cookies.get(SESSION_COOKIE)?.value);
   const isLogin = pathname === "/admin/login";
 
@@ -19,5 +32,6 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/admin", "/admin/:path*"],
+  // Everything except build assets, images and other static files.
+  matcher: ["/((?!_next/static|_next/image|images/|favicon.ico|icon.png|.*\\.(?:png|jpe?g|svg|webp|ico|txt|xml)$).*)"],
 };
